@@ -16,7 +16,7 @@ RUN set -ex \
     && cd /tmp \
     && wget -qO bitcore.tar.gz "$BITCORE_URL" \
     && echo "$BITCORE_SHA256 bitcore.tar.gz" | sha256sum -c - \
-    && tar -xzvf bitcore.tar.gz -C /usr/local --exclude=*-qt \
+    && tar -xzvf bitcore.tar.gz -C /usr/local/bin --exclude=*-qt \
     && rm -rf /tmp/*
 
 # create data directory
