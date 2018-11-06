@@ -5,7 +5,16 @@ RUN groupadd -r bitcore && useradd -r -m -g bitcore bitcore
 RUN set -ex \
     && apt-get update \
     && apt-get install -qq --no-install-recommends ca-certificates dirmngr gosu gpg wget \
+    && apt-get install -qq --no-install-recommends libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-program-options-dev libboost-thread-dev libminiupnpc10 libevent-dev libdb++-dev \
     && rm -rf /var/lib/apt/lists/*
+
+RUN ln -s /usr/lib/x86_64-linux-gnu/libboost_system.so.1.62.0 /usr/lib/x86_64-linux-gnu/libboost_system.so.1.58.0 \
+    && ln -s /usr/lib/x86_64-linux-gnu/libboost_filesystem.so.1.62.0 /usr/lib/x86_64-linux-gnu/libboost_filesystem.so.1.58.0 \
+    && ln -s /usr/lib/x86_64-linux-gnu/libboost_program_options.so.1.62.0 /usr/lib/x86_64-linux-gnu/libboost_program_options.so.1.58.0 \
+    && ln -s /usr/lib/x86_64-linux-gnu/libboost_thread.so.1.62.0 /usr/lib/x86_64-linux-gnu/libboost_thread.so.1.58.0 \
+    && ln -s /usr/lib/x86_64-linux-gnu/libboost_chrono.so.1.62.0 /usr/lib/x86_64-linux-gnu/libboost_chrono.so.1.58.0 \
+    && ln -s /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1 /usr/lib/x86_64-linux-gnu/libcrypto.so.1.0.0 \
+    && ln -s /usr/lib/x86_64-linux-gnu/libdb_cxx-5.3.so /usr/lib/x86_64-linux-gnu/libdb_cxx-4.8.so
 
 ENV BITCORE_VERSION 0.15.2
 ENV BITCORE_URL https://github.com/LIMXTEC/BitCore/releases/download/0.15.2.0.0/linux.Ubuntu.16.04.LTS-static-libstdc.tar.gz
