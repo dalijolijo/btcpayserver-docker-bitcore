@@ -17,6 +17,16 @@ if [[ "$1" == "bitcore-cli" || "$1" == "bitcore-tx" || "$1" == "bitcored" || "$1
 	chown -R bitcore "$BITCORE_DATA"
 	ln -sfn "$BITCORE_DATA" /home/bitcore/.bitcore
 	chown -h bitcore:bitcore /home/bitcore/.bitcore
+	
+	# Downloading bootstrap file
+	WEB="bitcore.cc" # without "https://" and without the last "/" (only HTTPS accepted)
+	BOOTSTRAP="bootstrap.tar.gz"
+	cd $BITCORE_DATA
+	if [ "$(curl -Is https://${WEB}/${BOOTSTRAP} | head -n 1 | tr -d '\r\n')" = "HTTP/1.1 200 OK" ] ; then \
+        	sudo -u bitcore wget https://${WEB}/${BOOTSTRAP}; \
+        	sudo -u bitcore tar -xvzf ${BOOTSTRAP}; \
+        	sudo -u bitcore rm ${BOOTSTRAP}; \
+	fi
 
 	exec gosu bitcore "$@"
 else

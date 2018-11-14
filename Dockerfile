@@ -4,7 +4,7 @@ RUN groupadd -r bitcore && useradd -r -m -g bitcore bitcore
 
 RUN set -ex \
     && apt-get update \
-    && apt-get install -qq --no-install-recommends ca-certificates dirmngr gosu gpg wget sudo \
+    && apt-get install -qq --no-install-recommends ca-certificates dirmngr gosu gpg wget sudo curl \
     && apt-get install -qq --no-install-recommends libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-program-options-dev libboost-thread-dev libminiupnpc10 libevent-dev libdb++-dev \
     && rm -rf /var/lib/apt/lists/*
 
