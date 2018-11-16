@@ -5,10 +5,16 @@ if [[ "$1" == "bitcore-cli" || "$1" == "bitcore-tx" || "$1" == "bitcored" || "$1
 	mkdir -p "$BITCORE_DATA"
 
 	cat <<-EOF > "$BITCORE_DATA/bitcore.conf"
+	[main]
 	printtoconsole=1
 	rpcallowip=::/0
+	deprecatedrpc=signrawtransaction
+	bind=BIND_IP:39388
 	${BITCOIN_EXTRA_ARGS}
 	EOF
+
+	BIND_IP=$(ip addr | grep 'global eth0' | xargs | cut -f2 -d ' ' | cut -f1 -d '/')
+	sed -i "s#^\(bind=\).*#bind=${BIND_IP}:39388#g" "$BITCORE_DATA/bitcore.conf"
 	chown bitcore:bitcore "$BITCORE_DATA/bitcore.conf"
 
 	# ensure correct ownership and linking of data directory
