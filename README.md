@@ -7,7 +7,7 @@ Clone repository
 git clone https://github.com/dalijolijo/btcpayserver-docker-bitcore.git
 ```
 
-Change `BITCORE_VERSION <new_version>` in Dockerfile and build new docker image with <new_version> tag
+Change version in docker-bitcored/VERSION file and build new docker image with <new_version> tag
 ```sh
 docker build -t dalijolijo/docker-bitcore:<new_version> .
 ```
