@@ -6,11 +6,10 @@ RUN set -ex \
     && apt-get update \
     && apt-get install -qq --no-install-recommends ca-certificates dirmngr gosu gpg wget sudo curl iproute2 unzip \
     && rm -rf /var/lib/apt/lists/*
-#    && apt-get install -qq --no-install-recommends libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-program-options-dev libboost-thread-dev libevent-dev libdb++-dev \
 
-ENV BITCORE_VERSION 0.90.9.1
-ENV BITCORE_URL https://github.com/LIMXTEC/BitCore/releases/download/${BITCORE_VERSION}/bitcore-x86_64-linux-gnu_no-wallet.tar.gz
-ENV BITCORE_SHA256 7dc0f84799d025e7acbf13a985d69c2069f8e401b7d493766632a5339c1db8f8
+ENV BITCORE_VERSION 0.90.9.10
+ENV BITCORE_URL https://github.com/bitcore-btx/BitCore/releases/download/${BITCORE_VERSION}/bitcore-x86_64-linux-gnu_no-wallet.tar.gz
+ENV BITCORE_SHA256 1980b85c229e00f58a474858a2da9fe9fc41f0fba06416337ea9f5e4aa197a1b
 
 # install Bitcore binaries
 RUN set -ex \

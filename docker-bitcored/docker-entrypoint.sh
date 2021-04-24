@@ -17,13 +17,13 @@ if [[ "$1" == "bitcore-cli" || "$1" == "bitcore-tx" || "$1" == "bitcored" || "$1
 
 	cat <<-EOF > "$BITCOIN_DATA/bitcore.conf"
 	${CONFIG_PREFIX}
+	listen=1
 	printtoconsole=1
 	rpcallowip=::/0
         bind=BIND_IP:39388
+	deprecatedrpc=signrawtransaction
         txindex=1
-        listen=1
         rpcport=43782
-        mainnet=1
         port=39388
         whitelist=0.0.0.0/0
 	${BITCOIN_EXTRA_ARGS}
@@ -41,13 +41,13 @@ if [[ "$1" == "bitcore-cli" || "$1" == "bitcore-tx" || "$1" == "bitcored" || "$1
 	chown -h bitcore:bitcore /home/bitcore/.bitcore
 	
 	# Downloading bootstrap file
-	#BOOTSTRAP="https://github.com/LIMXTEC/BitCore/releases/download/0.90.9.1/z_bootstrap-02-07-2020.zip"
-	#cd $BITCORE_DATA
-	#if [ "$(curl -Is ${BOOTSTRAP} | head -n 1 | tr -d '\r\n')" = "HTTP/1.1 302 Found" ] ; then \
-       # 	sudo -u bitcore wget ${BOOTSTRAP} -O ${BITCORE_DATA}/bootstrap.zip; \
-       # 	sudo -u bitcore unzip -o bootstrap.zip; \
-       # 	sudo -u bitcore rm bootstrap.zip; \
-	#fi
+	BOOTSTRAP="https://github.com/bitcore-btx/BitCore/releases/download/0.90.9.10/bootstrap.zip"
+	cd $BITCORE_DATA
+	if [ "$(curl -Is ${BOOTSTRAP} | head -n 1 | tr -d '\r\n')" = "HTTP/1.1 302 Found" ] ; then \
+		sudo -u bitcore wget ${BOOTSTRAP} -O ${BITCORE_DATA}/bootstrap.zip; \
+		sudo -u bitcore unzip -o bootstrap.zip; \
+		sudo -u bitcore rm bootstrap.zip; \
+	fi
 
 	exec gosu bitcore "$@"
 else
