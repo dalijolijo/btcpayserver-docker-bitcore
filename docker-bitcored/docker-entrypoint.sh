@@ -5,13 +5,13 @@ if [[ "$1" == "bitcore-cli" || "$1" == "bitcore-tx" || "$1" == "bitcored" || "$1
 	mkdir -p "$BITCORE_DATA"
 
 	CONFIG_PREFIX=""
-	if [[ "${BITCOIN_NETWORK}" == "regtest" ]]; then
+	if [[ "${BITCORE_NETWORK}" == "regtest" ]]; then
 		CONFIG_PREFIX=$'regtest=1\n[regtest]'
 	fi
-	if [[ "${BITCOIN_NETWORK}" == "testnet" ]]; then
+	if [[ "${BITCORE_NETWORK}" == "testnet" ]]; then
 		CONFIG_PREFIX=$'testnet=1\n[test]'
 	fi
-	if [[ "${BITCOIN_NETWORK}" == "mainnet" ]]; then
+	if [[ "${BITCORE_NETWORK}" == "mainnet" ]]; then
 		CONFIG_PREFIX=$'mainnet=1\n[main]'
 	fi
 
@@ -20,7 +20,6 @@ ${CONFIG_PREFIX}
 listen=1
 printtoconsole=1
 rpcallowip=::/0
-bind=BIND_IP:39388
 deprecatedrpc=signrawtransaction
 txindex=1
 rpcport=43782
@@ -29,8 +28,8 @@ whitelist=0.0.0.0/0
 ${BITCOIN_EXTRA_ARGS}
 EOF
 
-	BIND_IP=$(ip addr | grep 'global eth0' | xargs | cut -f2 -d ' ' | cut -f1 -d '/')
-	sed -i "s#^\(bind=\).*#bind=${BIND_IP}:39388#g" "$BITCORE_DATA/bitcore.conf"
+	#BIND_IP=$(ip addr | grep 'global eth0' | xargs | cut -f2 -d ' ' | cut -f1 -d '/')
+	#sed -i "s#^\(bind=\).*#bind=${BIND_IP}:39388#g" "$BITCORE_DATA/bitcore.conf"
 	chown bitcore:bitcore "$BITCORE_DATA/bitcore.conf"
 
 	# ensure correct ownership and linking of data directory
