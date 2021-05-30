@@ -15,7 +15,7 @@ if [[ "$1" == "bitcore-cli" || "$1" == "bitcore-tx" || "$1" == "bitcored" || "$1
 		CONFIG_PREFIX=$'mainnet=1\n[main]'
 	fi
 
-	cat <<-EOF > "$BITCOIN_DATA/bitcore.conf"
+	cat <<-EOF > "$BITCORE_DATA/bitcore.conf"
 	${CONFIG_PREFIX}
 	listen=1
 	printtoconsole=1
