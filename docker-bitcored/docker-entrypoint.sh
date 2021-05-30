@@ -16,18 +16,18 @@ if [[ "$1" == "bitcore-cli" || "$1" == "bitcore-tx" || "$1" == "bitcored" || "$1
 	fi
 
 	cat <<-EOF > "$BITCORE_DATA/bitcore.conf"
-	${CONFIG_PREFIX}
-	listen=1
-	printtoconsole=1
-	rpcallowip=::/0
-        bind=BIND_IP:39388
-	deprecatedrpc=signrawtransaction
-        txindex=1
-        rpcport=43782
-        port=39388
-        whitelist=0.0.0.0/0
-	${BITCOIN_EXTRA_ARGS}
-	EOF
+${CONFIG_PREFIX}
+listen=1
+printtoconsole=1
+rpcallowip=::/0
+bind=BIND_IP:39388
+deprecatedrpc=signrawtransaction
+txindex=1
+rpcport=43782
+port=39388
+whitelist=0.0.0.0/0
+${BITCOIN_EXTRA_ARGS}
+EOF
 
 	BIND_IP=$(ip addr | grep 'global eth0' | xargs | cut -f2 -d ' ' | cut -f1 -d '/')
 	sed -i "s#^\(bind=\).*#bind=${BIND_IP}:39388#g" "$BITCORE_DATA/bitcore.conf"
